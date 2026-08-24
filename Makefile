@@ -1,15 +1,22 @@
 .PHONY: setup test lint typecheck format run-eval clean
+
 setup:
-	pip install -e '.[dev]'
+	uv sync --locked --extra dev
+
 test:
-	pytest -q
+	uv run pytest -q tests
+
 lint:
-	ruff check src tests
+	uv run ruff check src tests
+
 typecheck:
-	mypy src
+	uv run mypy src
+
 format:
-	ruff format src tests
+	uv run ruff format src tests
+
 run-eval:
-	pref-lab evaluate --config configs/local.yaml
+	uv run pref-lab evaluate --config configs/local.yaml
+
 clean:
 	rm -rf .pytest_cache .ruff_cache .mypy_cache outputs

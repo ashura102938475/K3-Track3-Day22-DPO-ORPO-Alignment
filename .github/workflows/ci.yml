@@ -1,14 +1,38 @@
 name: ci
-on: [push, pull_request]
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
         with:
-          python-version: '3.11'
-      - run: pip install -e '.[dev]'
-      - run: ruff check src tests
-      - run: mypy src
-      - run: pytest -q
+          version: "0.12.5"
+
+      - name: Install Python
+        run: uv python install
+
+      - name: Sync locked development environment
+        run: uv sync --locked --extra dev
+
+      - name: Lint
+        run: make lint
+
+      - name: Type-check
+        run: make typecheck
+
+      - name: Test
+        run: make test
+
+      - name: Smoke test
+        run: bash scripts/smoke_test.sh

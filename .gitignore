@@ -1,6 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
+*.egg-info/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
@@ -9,3 +10,4 @@ wandb/
 *.safetensors
 *.bin
 .env
+.ai-log/session.jsonl
