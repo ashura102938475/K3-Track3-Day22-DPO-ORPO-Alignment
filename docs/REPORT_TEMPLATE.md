@@ -1,5 +1,8 @@
 # Preference Alignment Experiment Report
 
+- **Student**: NGUYỄN ANH TRÀ
+- **Student ID**: 2A202601735
+
 ## 1. Dataset Analysis and Cleaning
 
 ### Data Loading Summary
